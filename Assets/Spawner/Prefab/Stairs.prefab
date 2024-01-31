@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6718250853818712122}
   - component: {fileID: 5983427543245059526}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player Location
   m_TagString: StairsTop
   m_Icon: {fileID: 0}
@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 1524145002913714876}
   - component: {fileID: 7620206133007567154}
   - component: {fileID: 1936582406882226338}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
