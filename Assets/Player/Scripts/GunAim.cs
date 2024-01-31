@@ -7,12 +7,20 @@ public class GunAim : MonoBehaviour
     [SerializeField] private float minRot;
     [SerializeField] private float maxRot;
     [SerializeField] private float rotationSpeed;
-
+    [SerializeField] private float speedIncrement;
+    [SerializeField] private float maxSpeed;
+    
     private float _localRotationSpeed;
     
     private void Start()
     {
         _localRotationSpeed = rotationSpeed;
+    }
+
+    public void IncreaseSpeed()
+    {
+        if (_localRotationSpeed < maxSpeed)
+            _localRotationSpeed += speedIncrement;
     }
 
     private void Update()
@@ -23,6 +31,9 @@ public class GunAim : MonoBehaviour
         if (transform.eulerAngles.z < minRot)
             rotationSpeed = _localRotationSpeed;
         if (transform.eulerAngles.z > maxRot)
+        {
             rotationSpeed = -_localRotationSpeed;
+            enabled = false;
+        }
     }
 }

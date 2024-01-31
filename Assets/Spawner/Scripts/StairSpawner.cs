@@ -6,14 +6,13 @@ public class StairSpawner : MonoBehaviour
     public static int CurrentStairIndex;
     public static readonly List<StairHandler> StairCases = new List<StairHandler>();
     
-    [SerializeField] private float yIncrement;
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private StairHandler firstStairs;
     [SerializeField] private float xMin;
     [SerializeField] private float xMax;
     [SerializeField] private Transform[] playerLocations;
     
-    private float _yOffset;
+    private float _yOffset = 2;
     private int _direction = 1;
     private int _currentOrderIndex = -1;
     private Vector3 _playerLocation;
@@ -22,16 +21,20 @@ public class StairSpawner : MonoBehaviour
     {
         StairCases.Add(firstStairs);
         for (int i = 0; i < 5; i++)
+        {
             Spawn();
+        }
     }
 
     public void Spawn()
     {
-        _yOffset += yIncrement;
+        int r = Random.Range(0, prefabs.Length);
         var pos = new Vector3(Random.Range(xMin, xMax), _yOffset, 0f);
         _direction *= -1;
+
+        var temp = Instantiate(prefabs[r], pos, Quaternion.identity);
         
-        var temp = Instantiate(prefab, pos, Quaternion.identity);
+        _yOffset += prefabs[r].GetComponent<StairHandler>().yIncrement;
 
         var playerLocationObject = temp.transform.GetChild(1);
         var enemyLocationObject = temp.transform.GetChild(2);
@@ -72,7 +75,8 @@ public class StairSpawner : MonoBehaviour
         for (int i = CurrentStairIndex; i < StairCases.Count; i++)
         {
             StairCases[i].SetColor(factor);
-            factor -= .2f;
+            if (factor > 0f)
+                factor -= .2f;
         }
     }
 }

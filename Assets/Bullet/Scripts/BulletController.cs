@@ -24,5 +24,13 @@ public class BulletController : MonoBehaviour
             _shooting.EnemyHit();
             Destroy(gameObject);
         }
+        else if (col.transform.CompareTag("Player"))
+        {
+            GameStateManager.ChangeState(FindObjectOfType<GameOverState>());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

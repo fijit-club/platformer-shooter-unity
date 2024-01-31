@@ -29,6 +29,7 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
+            gunAim.IncreaseSpeed();
             gunAim.stopAiming = false;
             shooting.disableShooting = false;
             movable = false;
@@ -36,6 +37,7 @@ public class ClimbUp : MonoBehaviour
             
             var rot = gunTransform.eulerAngles;
             rot.y -= 180f;
+            rot.z = 0f;
             gunTransform.eulerAngles = rot;
             
             ray.SetActive(true);

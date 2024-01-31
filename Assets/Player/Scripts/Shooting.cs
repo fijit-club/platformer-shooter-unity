@@ -1,9 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Shooting : MonoBehaviour
 {
     public bool disableShooting;
+    
+    public bool DisableShooting
+    {
+        set => disableShooting = value;
+    }
+
+    public GameObject test;
     
     [SerializeField] private ClimbUp climbUp;
     [SerializeField] private GunAim gunAim;
@@ -24,5 +32,11 @@ public class Shooting : MonoBehaviour
     public void EnemyHit()
     {
         climbUp.movable = true;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            SceneManager.LoadScene(0);
     }
 }

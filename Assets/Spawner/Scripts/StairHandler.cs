@@ -3,6 +3,7 @@ using UnityEngine;
 public class StairHandler : MonoBehaviour
 {
     public EnemyMovement enemy;
+    public float yIncrement;
     
     [SerializeField] private Collider2D[] colliders;
     [SerializeField] private SpriteRenderer[] spriteRenderers;
