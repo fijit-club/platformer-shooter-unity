@@ -17,11 +17,7 @@ public class GunAim : MonoBehaviour
 
     private void Update()
     {
-        if (stopAiming)
-        {
-            transform.rotation = Quaternion.identity;
-            return;
-        }
+        if (stopAiming) return;
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
         
         if (transform.eulerAngles.z < minRot)

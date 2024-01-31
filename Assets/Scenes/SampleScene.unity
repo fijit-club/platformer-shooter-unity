@@ -525,6 +525,7 @@ MonoBehaviour:
   stairSpawner: {fileID: 1723934342}
   cameraMovement: {fileID: 519420033}
   cameraIncrementY: 2.2163
+  gunAim: {fileID: 1359113570}
 --- !u!50 &696550502
 Rigidbody2D:
   serializedVersion: 4
@@ -899,12 +900,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableShooting: 0
-  gunMuzzle: {fileID: 2033401237}
   climbUp: {fileID: 696550501}
+  gunAim: {fileID: 1359113570}
   ray: {fileID: 848932859}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  bullet: {fileID: 851124310383958299, guid: 8173b190280ef674788f1e71e19b0f42, type: 3}
+  bulletSpawnPoint: {fileID: 1943331471}
 --- !u!1 &1496881331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1103,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1943331470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943331471}
+  m_Layer: 0
+  m_Name: Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943331471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943331470}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0030002594, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2033401237}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2033401236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1943331471}
   - {fileID: 848932860}
   m_Father: {fileID: 1359113569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

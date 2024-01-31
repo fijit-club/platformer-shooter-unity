@@ -14,6 +14,7 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private StairSpawner stairSpawner;
     [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private float cameraIncrementY;
+    [SerializeField] private GunAim gunAim;
     
     private Rigidbody2D _rb;
     private int _moveDir = 1;
@@ -28,6 +29,7 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
+            gunAim.stopAiming = false;
             shooting.disableShooting = false;
             movable = false;
             _rb.velocity = Vector2.zero;
