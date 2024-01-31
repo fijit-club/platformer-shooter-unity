@@ -78,3 +78,7 @@ sysinfo.txt
 # End of https://www.toptal.com/developers/gitignore/api/unity,rider
 ProjectSettings/SceneTemplateSettings.json
 	
+Packages/manifest.json
+ProjectSettings/boot.config
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/ProjectVersion.txt
