@@ -18,11 +18,23 @@ public class ClimbUp : MonoBehaviour
     
     private Rigidbody2D _rb;
     private int _moveDir = 1;
-
+    private Vector3 _startPos;
+    private Quaternion _startRot;
+    
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         cameraIncrementY = cameraMovement.transform.position.y - transform.position.y;
+
+        _startPos = transform.position;
+        _startRot = transform.rotation;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = _startPos;
+        transform.rotation = _startRot;
+        _moveDir = 1;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

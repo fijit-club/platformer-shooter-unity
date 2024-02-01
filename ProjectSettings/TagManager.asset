@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - StairsTop
   - Enemy Location
+  - First Enemy
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public bool move;
+    public Transform spawnedObjHolder;
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform enemyLocation;
@@ -12,7 +13,25 @@ public class EnemyMovement : MonoBehaviour
     
     private bool _initiatedTimer;
     private Transform _player;
-    
+    private Vector3 _initPosition;
+    private Vector3 _initGunPosition;
+    private Quaternion _initGunRotation;
+
+    private void Start()
+    {
+        _initPosition = transform.position;
+        _initGunPosition = enemyGun.transform.position;
+        _initGunRotation = enemyGun.transform.rotation;
+    }
+
+    public void ResetEnemy()
+    {
+        _initiatedTimer = false;
+        transform.position = _initPosition;
+        enemyGun.transform.position = _initGunPosition;
+        enemyGun.transform.rotation = _initGunRotation;
+    }
+
     private bool Approximation(float a, float b, float tolerance)
     {
         return (Mathf.Abs(a - b) < tolerance);
@@ -38,12 +57,12 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator ShootPlayer()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         if (transform.position.x < 0f)
-            enemyGun.Aim(_player, 1);
+            enemyGun.Aim(_player, 1, spawnedObjHolder);
         else
-            enemyGun.Aim(_player, -1);
+            enemyGun.Aim(_player, -1, spawnedObjHolder);
     }
 
     private void OnDestroy()

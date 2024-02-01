@@ -11,19 +11,26 @@ public class StairSpawner : MonoBehaviour
     [SerializeField] private float xMin;
     [SerializeField] private float xMax;
     [SerializeField] private Transform[] playerLocations;
+    [SerializeField] private Transform spawnedObjHolder;
     
     private float _yOffset = 2;
     private int _direction = 1;
     private int _currentOrderIndex = -1;
-    private Vector3 _playerLocation;
-    
-    private void Start()
+
+    public void InitialSpawn()
     {
         StairCases.Add(firstStairs);
         for (int i = 0; i < 5; i++)
-        {
             Spawn();
-        }
+    }
+
+    public void ResetSpawnData()
+    {
+        _yOffset = 2;
+        _direction = 1;
+        _currentOrderIndex = -1;
+        CurrentStairIndex = 0;
+        StairCases.Clear();
     }
 
     public void Spawn()
@@ -32,13 +39,13 @@ public class StairSpawner : MonoBehaviour
         var pos = new Vector3(Random.Range(xMin, xMax), _yOffset, 0f);
         _direction *= -1;
 
-        var temp = Instantiate(prefabs[r], pos, Quaternion.identity);
-        
+        var temp = Instantiate(prefabs[r], pos, Quaternion.identity, spawnedObjHolder);
+        temp.GetComponent<StairHandler>().enemy.spawnedObjHolder = spawnedObjHolder;
         _yOffset += prefabs[r].GetComponent<StairHandler>().yIncrement;
 
         var playerLocationObject = temp.transform.GetChild(1);
         var enemyLocationObject = temp.transform.GetChild(2);
-        playerLocationObject.parent = null;
+        playerLocationObject.parent = spawnedObjHolder;
         //enemyLocationObject.parent = null;
         var playerPos = playerLocationObject.position;
         var enemyPos = enemyLocationObject.position;

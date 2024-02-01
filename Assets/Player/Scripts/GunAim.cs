@@ -11,10 +11,22 @@ public class GunAim : MonoBehaviour
     [SerializeField] private float maxSpeed;
     
     private float _localRotationSpeed;
+    private Vector3 _startPos;
+    private Quaternion _startRot;
+
+    public void ResetGun()
+    {
+        _localRotationSpeed = rotationSpeed;
+        stopAiming = false;
+        transform.position = _startPos;
+        transform.rotation = _startRot;
+    }
     
     private void Start()
     {
         _localRotationSpeed = rotationSpeed;
+        _startPos = transform.position;
+        _startRot = transform.rotation;
     }
 
     public void IncreaseSpeed()
@@ -32,7 +44,6 @@ public class GunAim : MonoBehaviour
             rotationSpeed = _localRotationSpeed;
         if (transform.eulerAngles.z > maxRot)
         {
-            rotationSpeed = -_localRotationSpeed;
             enabled = false;
         }
     }

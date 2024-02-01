@@ -12,13 +12,13 @@ public class EnemyGun : MonoBehaviour
     private bool _aim;
     private Transform _player;
     
-    public void Aim(Transform player, int direction)
+    public void Aim(Transform player, int direction, Transform spawnedObjHolder)
     {
         //_aim = true;
         
-        transform.parent = null;
+        transform.parent = spawnedObjHolder;
         
-        emptyTransform.parent = null;
+        emptyTransform.parent = spawnedObjHolder;
         emptyTransform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
         _player = player;

@@ -22,15 +22,16 @@ public class BulletController : MonoBehaviour
         {
             Destroy(col.gameObject);
             _shooting.EnemyHit();
-            Destroy(gameObject);
         }
         else if (col.transform.CompareTag("Player"))
         {
             GameStateManager.ChangeState(FindObjectOfType<GameOverState>());
         }
-        else
+        else if (col.transform.CompareTag("First Enemy"))
         {
-            Destroy(gameObject);
+            col.gameObject.SetActive(false);
+            _shooting.EnemyHit();
         }
+        Destroy(gameObject);
     }
 }

@@ -315,6 +315,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 696550498}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1359113568}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1723934342}
+        m_TargetAssemblyTypeName: StairSpawner, Assembly-CSharp
+        m_MethodName: ResetSpawnData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1723934342}
+        m_TargetAssemblyTypeName: StairSpawner, Assembly-CSharp
+        m_MethodName: InitialSpawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls:
@@ -476,6 +524,7 @@ GameObject:
   - component: {fileID: 406946465}
   - component: {fileID: 406946464}
   - component: {fileID: 406946463}
+  - component: {fileID: 406946467}
   m_Layer: 5
   m_Name: Game Over UI
   m_TagString: Untagged
@@ -567,6 +616,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &406946467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406946462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140a0ac204aeb9748a23beb5949d6b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnedObjects: {fileID: 1102279646}
+  enemy: {fileID: 7212954213535381543}
+  gun: {fileID: 1125169000}
+  emptyTransform: {fileID: 665809124}
+  mainMenuState: {fileID: 106496305}
+  stairSpawner: {fileID: 1723934342}
+  climbUp: {fileID: 696550501}
+  gunAim: {fileID: 1359113570}
+  enemyMovement: {fileID: 7212954213535381546}
+  cameraMovement: {fileID: 519420033}
 --- !u!1 &415426758
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1037,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 614351691}
   m_CullTransparentMesh: 1
+--- !u!4 &665809124 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6037134977950215881, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+  m_PrefabInstance: {fileID: 7212954213535381541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &675393609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,13 +1421,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1760453515}
-          m_TargetAssemblyTypeName: GameStateManager, Assembly-CSharp
-          m_MethodName: ChangeState
-          m_Mode: 2
+        - m_Target: {fileID: 406946467}
+          m_TargetAssemblyTypeName: GameOverSettings, Assembly-CSharp
+          m_MethodName: ReplayGame
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 106496305}
-            m_ObjectArgumentAssemblyTypeName: GameState, Assembly-CSharp
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1641,7 +1717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &848932860
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,6 +2000,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067400539}
   m_CullTransparentMesh: 1
+--- !u!1 &1102279645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1102279646}
+  m_Layer: 0
+  m_Name: Spawned Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1102279646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102279645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1125169000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2537469056175000719, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+  m_PrefabInstance: {fileID: 7212954213535381541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1324317699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2460,6 +2572,7 @@ MonoBehaviour:
   playerLocations:
   - {fileID: 1659829837}
   - {fileID: 1496881333}
+  spawnedObjHolder: {fileID: 1102279646}
 --- !u!1 &1760453513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,6 +2726,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1359113568}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   onExit:
     m_PersistentCalls:
@@ -3024,6 +3149,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 848932859}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls: []
@@ -3227,6 +3364,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8244348769195078971, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: m_TagString
+      value: First Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3237,6 +3378,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8244348769195078971, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
   m_PrefabInstance: {fileID: 7212954213535381541}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &7212954213535381543 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 692864369692718742, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+  m_PrefabInstance: {fileID: 7212954213535381541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7212954213535381546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+  m_PrefabInstance: {fileID: 7212954213535381541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212954213535381542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66e5935af55ebc4d960248248995f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3253,3 +3410,4 @@ SceneRoots:
   - {fileID: 1496881333}
   - {fileID: 1659829837}
   - {fileID: 1760453514}
+  - {fileID: 1102279646}
