@@ -9,10 +9,12 @@ public class GunAim : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float speedIncrement;
     [SerializeField] private float maxSpeed;
+    [SerializeField] private StairSpawner stairSpawner;
     
     private float _localRotationSpeed;
     private Vector3 _startPos;
     private Quaternion _startRot;
+    private float _initSpeed;
 
     public void ResetGun()
     {
@@ -20,6 +22,8 @@ public class GunAim : MonoBehaviour
         stopAiming = false;
         transform.position = _startPos;
         transform.rotation = _startRot;
+        _localRotationSpeed = _initSpeed;
+        rotationSpeed = _initSpeed;
     }
     
     private void Start()
@@ -27,6 +31,7 @@ public class GunAim : MonoBehaviour
         _localRotationSpeed = rotationSpeed;
         _startPos = transform.position;
         _startRot = transform.rotation;
+        _initSpeed = rotationSpeed;
     }
 
     public void IncreaseSpeed()
@@ -44,6 +49,7 @@ public class GunAim : MonoBehaviour
             rotationSpeed = _localRotationSpeed;
         if (transform.eulerAngles.z > maxRot)
         {
+            stairSpawner.currentEnemy.Shoot();
             enabled = false;
         }
     }

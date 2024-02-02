@@ -35,6 +35,7 @@ public class ClimbUp : MonoBehaviour
         transform.position = _startPos;
         transform.rotation = _startRot;
         _moveDir = 1;
+        movable = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -54,10 +55,10 @@ public class ClimbUp : MonoBehaviour
             
             ray.SetActive(true);
             _moveDir *= -1;
-            
-            stairSpawner.Spawn();
 
             int stairIndex = StairSpawner.CurrentStairIndex++;
+            stairSpawner.Spawn();
+
             var stairHandler = StairSpawner.StairCases[stairIndex + 1];
             stairHandler.TurnOnColliders();
             stairHandler.enemy.move = true;
@@ -74,6 +75,11 @@ public class ClimbUp : MonoBehaviour
 
         if (movable)
         {
+            var gunRotation = gunAim.transform.eulerAngles;
+            gunRotation.z = 0f;
+            gunAim.transform.eulerAngles = gunRotation;
+            print(gunAim.transform.eulerAngles.z);
+
             var transform1 = transform;
             var right = transform1.right;
             _rb.velocity = _moveDir * right * movementSpeed;

@@ -5,6 +5,7 @@ public class StairSpawner : MonoBehaviour
 {
     public static int CurrentStairIndex;
     public static readonly List<StairHandler> StairCases = new List<StairHandler>();
+    public EnemyMovement currentEnemy;
     
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private StairHandler firstStairs;
@@ -70,6 +71,8 @@ public class StairSpawner : MonoBehaviour
         var stairHandler = temp.GetComponent<StairHandler>();
         _currentOrderIndex--;
         stairHandler.SetLayerOrder(_currentOrderIndex);
+
+        currentEnemy = StairCases[CurrentStairIndex].GetComponent<StairHandler>().enemy;
         
         StairCases.Add(stairHandler);
         

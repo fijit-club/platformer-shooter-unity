@@ -10,12 +10,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform enemyLocation;
     [SerializeField] private Collider2D col;
     [SerializeField] private EnemyGun enemyGun;
+    [SerializeField] private float shootDelay;
     
-    private bool _initiatedTimer;
     private Transform _player;
     private Vector3 _initPosition;
     private Vector3 _initGunPosition;
     private Quaternion _initGunRotation;
+    private bool _shotBullet;
 
     private void Start()
     {
@@ -26,10 +27,10 @@ public class EnemyMovement : MonoBehaviour
 
     public void ResetEnemy()
     {
-        _initiatedTimer = false;
         transform.position = _initPosition;
         enemyGun.transform.position = _initGunPosition;
         enemyGun.transform.rotation = _initGunRotation;
+        _shotBullet = false;
     }
 
     private bool Approximation(float a, float b, float tolerance)
@@ -41,12 +42,6 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!move) return;
 
-        if (!_initiatedTimer)
-        {
-            StartCoroutine(ShootPlayer());
-            _initiatedTimer = true;
-        }
-
         if (Approximation(transform.localPosition.x, enemyLocation.localPosition.x, .1f))
         {
             col.enabled = true;
@@ -55,14 +50,21 @@ public class EnemyMovement : MonoBehaviour
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
     }
 
-    private IEnumerator ShootPlayer()
+    private IEnumerator DelayedShoot()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(shootDelay);
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         if (transform.position.x < 0f)
             enemyGun.Aim(_player, 1, spawnedObjHolder);
         else
             enemyGun.Aim(_player, -1, spawnedObjHolder);
+    }
+
+    public void Shoot()
+    {
+        if (_shotBullet) return;
+        _shotBullet = true;
+        StartCoroutine(DelayedShoot());
     }
 
     private void OnDestroy()

@@ -15,6 +15,7 @@ public class Shooting : MonoBehaviour
     
     [SerializeField] private ClimbUp climbUp;
     [SerializeField] private GunAim gunAim;
+    [SerializeField] private StairSpawner stairSpawner;
     
     [SerializeField] private GameObject ray;
     [SerializeField] private GameObject bullet;
@@ -27,16 +28,13 @@ public class Shooting : MonoBehaviour
         ray.SetActive(false);
         gunAim.stopAiming = true;
         disableShooting = true;
+        
+        var currentEnemy = stairSpawner.currentEnemy;
+        currentEnemy.Shoot();
     }
 
     public void EnemyHit()
     {
         climbUp.movable = true;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-            SceneManager.LoadScene(0);
     }
 }
