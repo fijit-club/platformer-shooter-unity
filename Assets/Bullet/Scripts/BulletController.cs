@@ -26,18 +26,20 @@ public class BulletController : MonoBehaviour
             col.transform.gameObject.SetActive(false);
             Bridge.GetInstance().VibrateBridge(true);
             GameStateManager.ChangeState(FindObjectOfType<GameOverState>());
+            CameraShake.Shake();
             Destroy(gameObject);
         }
 
         if (enemy) return;
         if (col.transform.CompareTag("Enemy"))
         {
-            Destroy(col.gameObject);
+            Destroy(col.transform.parent.gameObject);
             _shooting.EnemyHit(false);
+            GetComponent<Collider2D>().enabled = false;
         }
         else if (col.transform.CompareTag("First Enemy"))
         {
-            col.gameObject.SetActive(false);
+            col.transform.parent.gameObject.SetActive(false);
             _shooting.EnemyHit(false);
         }
         else if (col.transform.CompareTag("Enemy Head"))

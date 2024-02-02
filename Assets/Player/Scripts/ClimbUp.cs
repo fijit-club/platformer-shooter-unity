@@ -41,6 +41,8 @@ public class ClimbUp : MonoBehaviour
         transform.rotation = _startRot;
         _moveDir = 1;
         movable = false;
+        shooting.headshotStreak = 0;
+        shooting.headshotStreakText.gameObject.SetActive(false);
     }
 
     private void OnDisable()
@@ -117,7 +119,15 @@ public class ClimbUp : MonoBehaviour
 
     private void Headshot()
     {
-        scoring.UpdateScore(increment + 20);
+        if (shooting.headshotStreak == 2)
+            scoring.UpdateScore(increment + 20 * 2);
+        else if (shooting.headshotStreak == 3)
+            scoring.UpdateScore(increment + 20 * 4);
+        else if (shooting.headshotStreak == 4)
+            scoring.UpdateScore(increment + 20 * 8);
+        else
+            scoring.UpdateScore(increment + 20);
+            
         scoring.UpdateCoins(coinIncrement);
     }
 }
