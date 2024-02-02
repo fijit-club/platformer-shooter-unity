@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Collider2D col;
     [SerializeField] private EnemyGun enemyGun;
     [SerializeField] private float shootDelay;
+    [SerializeField] private Collider2D head;
     
     private Transform _player;
     private Vector3 _initPosition;
@@ -45,6 +46,7 @@ public class EnemyMovement : MonoBehaviour
         if (Approximation(transform.localPosition.x, enemyLocation.localPosition.x, .1f))
         {
             col.enabled = true;
+            head.enabled = true;
             return;
         }
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);

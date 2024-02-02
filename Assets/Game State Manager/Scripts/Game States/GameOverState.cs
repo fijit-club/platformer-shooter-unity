@@ -4,7 +4,10 @@ public class GameOverState : GameState
 {
     public override void OnEnter()
     {
-        EnteredState();
+        if (!addDelay)
+            EnteredState();
+        else
+            StartCoroutine(DelayedEnter());
     }
 
     public override void OnExit()

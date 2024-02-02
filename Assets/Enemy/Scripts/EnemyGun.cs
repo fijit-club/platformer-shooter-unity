@@ -14,8 +14,6 @@ public class EnemyGun : MonoBehaviour
     
     public void Aim(Transform player, int direction, Transform spawnedObjHolder)
     {
-        //_aim = true;
-        
         transform.parent = spawnedObjHolder;
         
         emptyTransform.parent = spawnedObjHolder;
@@ -36,7 +34,6 @@ public class EnemyGun : MonoBehaviour
     private IEnumerator DelayShot()
     {
         yield return new WaitForSeconds(shootDelay);
-        
         var temp = Instantiate(prefab, muzzlePoint.position, transform.rotation);
         Vector3 difference = _player.position - temp.transform.position;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;

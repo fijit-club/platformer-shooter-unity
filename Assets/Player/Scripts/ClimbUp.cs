@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClimbUp : MonoBehaviour
 {
     public bool movable;
+    public bool headshot;
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
@@ -15,12 +16,16 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private float cameraIncrementY;
     [SerializeField] private GunAim gunAim;
-    
+    [SerializeField] private ScoringSystem scoring;
+    [SerializeField] private int increment;
+    [SerializeField] private int coinIncrement;
+
     private Rigidbody2D _rb;
     private int _moveDir = 1;
     private Vector3 _startPos;
     private Quaternion _startRot;
-    
+    private bool scoreIncreased;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -36,6 +41,12 @@ public class ClimbUp : MonoBehaviour
         transform.rotation = _startRot;
         _moveDir = 1;
         movable = false;
+    }
+
+    private void OnDisable()
+    {
+        if (gunAim)
+            gunAim.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -75,10 +86,17 @@ public class ClimbUp : MonoBehaviour
 
         if (movable)
         {
+            if (!scoreIncreased)
+            {
+                if (headshot)
+                    Headshot();
+                else
+                    scoring.UpdateScore(increment);
+                scoreIncreased = true;
+            }
             var gunRotation = gunAim.transform.eulerAngles;
             gunRotation.z = 0f;
             gunAim.transform.eulerAngles = gunRotation;
-            print(gunAim.transform.eulerAngles.z);
 
             var transform1 = transform;
             var right = transform1.right;
@@ -91,5 +109,15 @@ public class ClimbUp : MonoBehaviour
                 _rb.velocity = Vector2.up * jumpForce;
             }
         }
+        else
+        {
+            scoreIncreased = false;
+        }
+    }
+
+    private void Headshot()
+    {
+        scoring.UpdateScore(increment + 20);
+        scoring.UpdateCoins(coinIncrement);
     }
 }

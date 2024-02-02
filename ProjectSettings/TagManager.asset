@@ -9,6 +9,7 @@ TagManager:
   - StairsTop
   - Enemy Location
   - First Enemy
+  - Enemy Head
   layers:
   - Default
   - TransparentFX

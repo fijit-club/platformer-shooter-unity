@@ -11,8 +11,6 @@ public class Shooting : MonoBehaviour
         set => disableShooting = value;
     }
 
-    public GameObject test;
-    
     [SerializeField] private ClimbUp climbUp;
     [SerializeField] private GunAim gunAim;
     [SerializeField] private StairSpawner stairSpawner;
@@ -33,8 +31,9 @@ public class Shooting : MonoBehaviour
         currentEnemy.Shoot();
     }
 
-    public void EnemyHit()
+    public void EnemyHit(bool headshot)
     {
         climbUp.movable = true;
+        climbUp.headshot = headshot;
     }
 }

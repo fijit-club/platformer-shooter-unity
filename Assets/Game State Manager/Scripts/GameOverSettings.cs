@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameOverSettings : MonoBehaviour
@@ -16,11 +17,6 @@ public class GameOverSettings : MonoBehaviour
     private Vector3 _initEnemyGunPos;
     private Quaternion _initEnemyGunRot;
     
-    private void Start()
-    {
-        
-    }
-
     public void ReplayGame()
     {
         for (int i = 0; i < spawnedObjects.childCount; i++)
