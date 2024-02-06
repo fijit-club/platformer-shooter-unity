@@ -43,7 +43,7 @@ public class GunAim : MonoBehaviour
     public void StopAim()
     {
         stopAiming = false;
-        transform.Rotate(0f, 0f, -20f);
+        rotationSpeed = _localRotationSpeed;
     }
 
     private void Update()
