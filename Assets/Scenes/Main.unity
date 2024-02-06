@@ -3108,7 +3108,7 @@ MonoBehaviour:
   stopAiming: 0
   minRot: 1
   maxRot: 50
-  rotationSpeed: 50
+  rotationSpeed: 30
   speedIncrement: 5
   maxSpeed: 80
   stairSpawner: {fileID: 1723934342}
@@ -4590,6 +4590,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: move
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: first
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}

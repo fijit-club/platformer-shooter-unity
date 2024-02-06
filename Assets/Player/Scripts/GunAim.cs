@@ -19,7 +19,7 @@ public class GunAim : MonoBehaviour
     public void ResetGun()
     {
         _localRotationSpeed = rotationSpeed;
-        stopAiming = false;
+        StopAim();
         transform.position = _startPos;
         transform.rotation = _startRot;
         _localRotationSpeed = _initSpeed;
@@ -40,14 +40,23 @@ public class GunAim : MonoBehaviour
             _localRotationSpeed += speedIncrement;
     }
 
+    public void StopAim()
+    {
+        stopAiming = false;
+        transform.Rotate(0f, 0f, -20f);
+    }
+
     private void Update()
     {
         if (stopAiming) return;
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+
+        var z = transform.eulerAngles.z;
+
+        if (z > 180f)
+            z -= 360f;
         
-        if (transform.eulerAngles.z < minRot)
-            rotationSpeed = _localRotationSpeed;
-        if (transform.eulerAngles.z > maxRot)
+        if (z > maxRot)
         {
             stairSpawner.currentEnemy.Shoot();
             enabled = false;

@@ -80,7 +80,7 @@ public class Shooting : MonoBehaviour
 
     private IEnumerator EnableMovement()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.3f);
         climbUp.movable = true;
     }
 }

@@ -70,6 +70,17 @@ public class ClimbUp : MonoBehaviour
             rot.y -= 180f;
             rot.z = 0f;
             gunTransform.eulerAngles = rot;
+
+
+            int stairIndex = StairSpawner.CurrentStairIndex++;
+            stairSpawner.Spawn();
+            var stairHandler = StairSpawner.StairCases[stairIndex + 1];
+            stairHandler.TurnOnColliders();
+            stairHandler.enemy.Move();
+
+            var pos = cameraMovement.transform.position;
+            pos.y = transform.position.y + cameraIncrementY;
+            cameraMovement.UpdateCamera(pos.y);
             StartCoroutine(DelayReachedTop());
         }
     }
@@ -83,22 +94,11 @@ public class ClimbUp : MonoBehaviour
     private void ReachedTop()
     {
         gunAim.IncreaseSpeed();
-        gunAim.stopAiming = false;
+        gunAim.StopAim();
         shooting.disableShooting = false;
 
         ray.SetActive(true);
         _moveDir *= -1;
-
-        int stairIndex = StairSpawner.CurrentStairIndex++;
-        stairSpawner.Spawn();
-
-        var stairHandler = StairSpawner.StairCases[stairIndex + 1];
-        stairHandler.TurnOnColliders();
-        stairHandler.enemy.move = true;
-
-        var pos = cameraMovement.transform.position;
-        pos.y = transform.position.y + cameraIncrementY;
-        cameraMovement.UpdateCamera(pos.y);
     }
 
     private void FixedUpdate()

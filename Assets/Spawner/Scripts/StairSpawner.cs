@@ -17,7 +17,8 @@ public class StairSpawner : MonoBehaviour
     private float _yOffset = 2;
     private int _direction = 1;
     private int _currentOrderIndex = -1;
-
+    private int _index = 1;
+    
     public void InitialSpawn()
     {
         StairCases.Add(firstStairs);
@@ -36,7 +37,13 @@ public class StairSpawner : MonoBehaviour
 
     public void Spawn()
     {
-        int r = Random.Range(0, prefabs.Length);
+        if (CurrentStairIndex > 10)
+        {
+            _index = 0;
+            print("reached 10");
+        }
+        
+        int r = Random.Range(0, prefabs.Length - _index);
         var pos = new Vector3(Random.Range(xMin, xMax), _yOffset, 0f);
         _direction *= -1;
 

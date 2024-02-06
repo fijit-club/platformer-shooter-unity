@@ -7,7 +7,8 @@ public class EnemyMovement : MonoBehaviour
     public bool move;
     public Transform spawnedObjHolder;
     public GameObject blood;
-
+    [SerializeField] private bool first;
+    
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform enemyLocation;
     [SerializeField] private Collider2D col;
@@ -28,6 +29,12 @@ public class EnemyMovement : MonoBehaviour
         _initGunRotation = enemyGun.transform.rotation;
     }
 
+    private void OnEnable()
+    {
+        if (first)
+            Move();
+    }
+
     public void ResetEnemy()
     {
         transform.position = _initPosition;
@@ -41,24 +48,16 @@ public class EnemyMovement : MonoBehaviour
         return (Mathf.Abs(a - b) < tolerance);
     }
     
-    private void Update()
-    {
-        if (!move) return;
-
-        if (move)
-        {
+    public void Move()
+    { {
             var pos = new Vector3(enemyLocation.position.x, transform.position.y, transform.position.z);
-            transform.DOMoveX(enemyLocation.position.x, 20f * Time.deltaTime).SetEase(Ease.Linear);
+            if (transform != null)
+                transform.DOMoveX(enemyLocation.position.x, 50f * Time.deltaTime).SetEase(Ease.Linear);
             col.enabled = true;
             head.enabled = true;
+            move = false;
             return;
         }
-
-        if (Approximation(transform.localPosition.x, enemyLocation.localPosition.x, .1f))
-        {
-            return;
-        }
-        transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
     }
 
     private IEnumerator DelayedShoot()
