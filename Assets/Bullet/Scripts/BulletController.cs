@@ -52,6 +52,15 @@ public class BulletController : MonoBehaviour
             Bridge.GetInstance().VibrateBridge(false);
             _shooting.EnemyHit(true);
         }
+
+        if (col.transform.CompareTag("Enemy") || col.transform.CompareTag("First Enemy") ||
+            col.transform.CompareTag("Enemy Head"))
+        {
+            col.transform.parent.GetComponent<EnemyMovement>().blood.transform.parent =
+                col.transform.parent.GetComponent<EnemyMovement>().spawnedObjHolder;
+            col.transform.parent.GetComponent<EnemyMovement>().blood.SetActive(true);
+        }
+
         Destroy(gameObject);
     }
 }

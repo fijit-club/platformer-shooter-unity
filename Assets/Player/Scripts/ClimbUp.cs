@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ClimbUp : MonoBehaviour
@@ -19,7 +20,8 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private ScoringSystem scoring;
     [SerializeField] private int increment;
     [SerializeField] private int coinIncrement;
-
+    [SerializeField] private ParticleSystem blood;
+    
     private Rigidbody2D _rb;
     private int _moveDir = 1;
     private Vector3 _startPos;
@@ -47,6 +49,12 @@ public class ClimbUp : MonoBehaviour
 
     private void OnDisable()
     {
+        blood.transform.position = transform.position;
+        if (blood.transform.position.x < 0f)
+            blood.transform.localScale = -Vector3.one;
+        else
+            blood.transform.localScale = Vector3.one;
+        blood.Play();
         if (gunAim)
             gunAim.gameObject.SetActive(false);
     }
@@ -55,31 +63,42 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
-            gunAim.IncreaseSpeed();
-            gunAim.stopAiming = false;
-            shooting.disableShooting = false;
             movable = false;
             _rb.velocity = Vector2.zero;
-            
+
             var rot = gunTransform.eulerAngles;
             rot.y -= 180f;
             rot.z = 0f;
             gunTransform.eulerAngles = rot;
-            
-            ray.SetActive(true);
-            _moveDir *= -1;
-
-            int stairIndex = StairSpawner.CurrentStairIndex++;
-            stairSpawner.Spawn();
-
-            var stairHandler = StairSpawner.StairCases[stairIndex + 1];
-            stairHandler.TurnOnColliders();
-            stairHandler.enemy.move = true;
-
-            var pos = cameraMovement.transform.position;
-            pos.y = transform.position.y + cameraIncrementY;
-            cameraMovement.UpdateCamera(pos.y);
+            StartCoroutine(DelayReachedTop());
         }
+    }
+
+    private IEnumerator DelayReachedTop()
+    {
+        yield return new WaitForSeconds(1f);
+        ReachedTop();
+    }
+
+    private void ReachedTop()
+    {
+        gunAim.IncreaseSpeed();
+        gunAim.stopAiming = false;
+        shooting.disableShooting = false;
+
+        ray.SetActive(true);
+        _moveDir *= -1;
+
+        int stairIndex = StairSpawner.CurrentStairIndex++;
+        stairSpawner.Spawn();
+
+        var stairHandler = StairSpawner.StairCases[stairIndex + 1];
+        stairHandler.TurnOnColliders();
+        stairHandler.enemy.move = true;
+
+        var pos = cameraMovement.transform.position;
+        pos.y = transform.position.y + cameraIncrementY;
+        cameraMovement.UpdateCamera(pos.y);
     }
 
     private void FixedUpdate()

@@ -1,18 +1,20 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     public bool move;
     public Transform spawnedObjHolder;
-    
+    public GameObject blood;
+
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform enemyLocation;
     [SerializeField] private Collider2D col;
     [SerializeField] private EnemyGun enemyGun;
     [SerializeField] private float shootDelay;
     [SerializeField] private Collider2D head;
-    
+
     private Transform _player;
     private Vector3 _initPosition;
     private Vector3 _initGunPosition;
@@ -43,10 +45,17 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!move) return;
 
-        if (Approximation(transform.localPosition.x, enemyLocation.localPosition.x, .1f))
+        if (move)
         {
+            var pos = new Vector3(enemyLocation.position.x, transform.position.y, transform.position.z);
+            transform.DOMoveX(enemyLocation.position.x, 20f * Time.deltaTime).SetEase(Ease.Linear);
             col.enabled = true;
             head.enabled = true;
+            return;
+        }
+
+        if (Approximation(transform.localPosition.x, enemyLocation.localPosition.x, .1f))
+        {
             return;
         }
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
@@ -72,5 +81,6 @@ public class EnemyMovement : MonoBehaviour
     private void OnDestroy()
     {
         CancelInvoke();
+        if (!Application.isPlaying) return;
     }
 }

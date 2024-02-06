@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,7 +40,6 @@ public class Shooting : MonoBehaviour
 
     public void EnemyHit(bool headshot)
     {
-        climbUp.movable = true;
         climbUp.headshot = headshot;
         if (!headshot)
         {
@@ -74,5 +74,13 @@ public class Shooting : MonoBehaviour
                 headshotStreakText.text = "x" + 8;
             }
         }
+
+        StartCoroutine(EnableMovement());
+    }
+
+    private IEnumerator EnableMovement()
+    {
+        yield return new WaitForSeconds(1f);
+        climbUp.movable = true;
     }
 }
