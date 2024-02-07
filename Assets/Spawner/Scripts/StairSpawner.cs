@@ -18,10 +18,16 @@ public class StairSpawner : MonoBehaviour
     private int _direction = 1;
     private int _currentOrderIndex = -1;
     private int _index = 1;
+    private bool _started;
+    
+    public void InitialInitialSpawn()
+    {
+        StairCases.Add(firstStairs);
+    }
     
     public void InitialSpawn()
     {
-        StairCases.Add(firstStairs);
+        _started = true;
         for (int i = 0; i < 5; i++)
             Spawn();
     }
@@ -88,6 +94,7 @@ public class StairSpawner : MonoBehaviour
 
     public void UpdateColors()
     {
+        if (!_started) return;
         float factor = 1f;
         for (int i = CurrentStairIndex; i < StairCases.Count; i++)
         {

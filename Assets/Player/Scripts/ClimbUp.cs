@@ -6,6 +6,7 @@ public class ClimbUp : MonoBehaviour
 {
     public bool movable;
     public bool headshot;
+    public bool died;
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
@@ -22,6 +23,7 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private int increment;
     [SerializeField] private int coinIncrement;
     [SerializeField] private ParticleSystem blood;
+    [SerializeField] private CameraInit cameraInit;
     
     private Rigidbody2D _rb;
     private int _moveDir = 1;
@@ -45,6 +47,7 @@ public class ClimbUp : MonoBehaviour
         _moveDir = 1;
         movable = false;
         shooting.headshotStreak = 0;
+        died = false;
         shooting.headshotStreakText.gameObject.SetActive(false);
     }
 
@@ -90,6 +93,12 @@ public class ClimbUp : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         //ReachedTop();
+    }
+
+
+    public void UpdateCamera()
+    {
+        cameraInit.SetCamera(transform.position - (Vector3.up * .3f));
     }
 
     public void ReachedTop()

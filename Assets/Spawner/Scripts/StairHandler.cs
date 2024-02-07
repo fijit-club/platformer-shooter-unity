@@ -9,8 +9,15 @@ public class StairHandler : MonoBehaviour
     [SerializeField] private SpriteRenderer[] spriteRenderers;
     [SerializeField] private Color initialColor;
     [SerializeField] private Transform spawnedParent;
+    [SerializeField] private bool first;
     
     private Color _newColor;
+
+    private void Start()
+    {
+        if (first)
+            _newColor = initialColor;
+    }
 
     public void MoveToSpawned()
     {
