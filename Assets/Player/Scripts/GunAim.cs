@@ -4,7 +4,6 @@ public class GunAim : MonoBehaviour
 {
     public bool stopAiming;
     
-    [SerializeField] private float minRot;
     [SerializeField] private float maxRot;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float speedIncrement;
@@ -19,7 +18,7 @@ public class GunAim : MonoBehaviour
     public void ResetGun()
     {
         _localRotationSpeed = rotationSpeed;
-        StopAim();
+        StartAim();
         transform.position = _startPos;
         transform.rotation = _startRot;
         _localRotationSpeed = _initSpeed;
@@ -40,7 +39,7 @@ public class GunAim : MonoBehaviour
             _localRotationSpeed += speedIncrement;
     }
 
-    public void StopAim()
+    public void StartAim()
     {
         stopAiming = false;
         rotationSpeed = _localRotationSpeed;
@@ -52,10 +51,6 @@ public class GunAim : MonoBehaviour
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
 
         var z = transform.eulerAngles.z;
-
-        if (z > 180f)
-            z -= 360f;
-        
         if (z > maxRot)
         {
             stairSpawner.currentEnemy.Shoot();

@@ -34,27 +34,39 @@ public class BulletController : MonoBehaviour
         if (col.transform.CompareTag("Enemy"))
         {
             Destroy(col.transform.parent.gameObject);
-            _shooting.EnemyHit(false);
+
+            var enemyMovement = col.transform.parent.GetComponent<EnemyMovement>();
+
+            if (enemyMovement.enemyHeadLocation.position.y < col.GetContact(0).point.y)
+            {
+                Bridge.GetInstance().VibrateBridge(false);
+                _shooting.EnemyHit(true);
+            }
+            else
+            {
+                _shooting.EnemyHit(false);
+            }
+            
             GetComponent<Collider2D>().enabled = false;
         }
         else if (col.transform.CompareTag("First Enemy"))
         {
             col.transform.parent.gameObject.SetActive(false);
-            _shooting.EnemyHit(false);
-        }
-        else if (col.transform.CompareTag("Enemy Head"))
-        {
-            if (!col.transform.parent.CompareTag("First Enemy"))
-                Destroy(col.transform.parent.gameObject);
+            
+            var enemyMovement = col.transform.parent.GetComponent<EnemyMovement>();
+
+            if (enemyMovement.enemyHeadLocation.position.y < col.GetContact(0).point.y)
+            {
+                Bridge.GetInstance().VibrateBridge(false);
+                _shooting.EnemyHit(true);
+            }
             else
-                col.transform.parent.gameObject.SetActive(false);
-                
-            Bridge.GetInstance().VibrateBridge(false);
-            _shooting.EnemyHit(true);
+            {
+                _shooting.EnemyHit(false);
+            }
         }
 
-        if (col.transform.CompareTag("Enemy") || col.transform.CompareTag("First Enemy") ||
-            col.transform.CompareTag("Enemy Head"))
+        if (col.transform.CompareTag("Enemy") || col.transform.CompareTag("First Enemy"))
         {
             col.transform.parent.GetComponent<EnemyMovement>().blood.transform.parent =
                 col.transform.parent.GetComponent<EnemyMovement>().spawnedObjHolder;
@@ -62,5 +74,10 @@ public class BulletController : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void CheckForHeadshot()
+    {
+        
     }
 }

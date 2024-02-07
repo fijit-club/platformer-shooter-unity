@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class ClimbUp : MonoBehaviour
@@ -88,13 +89,13 @@ public class ClimbUp : MonoBehaviour
     private IEnumerator DelayReachedTop()
     {
         yield return new WaitForSeconds(1f);
-        ReachedTop();
+        //ReachedTop();
     }
 
-    private void ReachedTop()
+    public void ReachedTop()
     {
         gunAim.IncreaseSpeed();
-        gunAim.StopAim();
+        gunAim.StartAim();
         shooting.disableShooting = false;
 
         ray.SetActive(true);

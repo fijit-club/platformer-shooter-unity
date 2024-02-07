@@ -8,8 +8,14 @@ public class StairHandler : MonoBehaviour
     [SerializeField] private Collider2D[] colliders;
     [SerializeField] private SpriteRenderer[] spriteRenderers;
     [SerializeField] private Color initialColor;
-
+    [SerializeField] private Transform spawnedParent;
+    
     private Color _newColor;
+
+    public void MoveToSpawned()
+    {
+        transform.parent = spawnedParent;
+    }
     
     public void SetLayerOrder(int index)
     {

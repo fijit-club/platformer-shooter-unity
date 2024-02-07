@@ -13,12 +13,14 @@ public class GameOverSettings : MonoBehaviour
     [SerializeField] private GunAim gunAim;
     [SerializeField] private EnemyMovement enemyMovement;
     [SerializeField] private CameraMovement cameraMovement;
+    [SerializeField] private Transform firstStairs;
     
     private Vector3 _initEnemyGunPos;
     private Quaternion _initEnemyGunRot;
     
     public void ReplayGame()
     {
+        firstStairs.parent = null;
         for (int i = 0; i < spawnedObjects.childCount; i++)
             Destroy(spawnedObjects.GetChild(i).gameObject);
         
@@ -26,12 +28,12 @@ public class GameOverSettings : MonoBehaviour
         
         climbUp.ResetPosition();
         gunAim.ResetGun();
-        enemyMovement.ResetEnemy();
+        //enemyMovement.ResetEnemy();
         gun.parent = enemy;
         emptyTransform.parent = enemy;
         cameraMovement.ResetCameraPosition();
         
-        enemyMovement.gameObject.SetActive(false);
+        //enemyMovement.gameObject.SetActive(false);
         
         GameStateManager.ChangeState(mainMenuState);
     }

@@ -3106,7 +3106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopAiming: 0
-  minRot: 1
   maxRot: 50
   rotationSpeed: 30
   speedIncrement: 5
@@ -3821,6 +3820,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7212954213535381544}
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
+        m_MethodName: ResetEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls:
@@ -3836,6 +3847,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!4 &1801189418 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6827879142461512650, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+  m_PrefabInstance: {fileID: 7212954213535381541}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1847169872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4542,6 +4558,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1354013534}
+        m_TargetAssemblyTypeName: StairHandler, Assembly-CSharp
+        m_MethodName: MoveToSpawned
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls: []
@@ -4590,15 +4618,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: move
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: time
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: first
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: movementSpeed
-      value: 8
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2537469056175000719, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: m_RootOrder
@@ -4649,6 +4685,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 851124310383958299, guid: a8c5c05996fa4f04bafb10979b09c507, type: 3}
     - target: {fileID: 3197719911755772673, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197719911755772673, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: muzzlePoint
       value: 
       objectReference: {fileID: 880399117}
@@ -4696,6 +4736,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5029644281794209872, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
+      propertyPath: spawnedParent
+      value: 
+      objectReference: {fileID: 1102279646}
     - target: {fileID: 6001472242631482770, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4808,7 +4852,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 692864369692718742, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
   m_PrefabInstance: {fileID: 7212954213535381541}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7212954213535381546 stripped
+--- !u!114 &7212954213535381544 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1936582406882226338, guid: de6d31f6cdfd5ca4aa4d9205c59a3076, type: 3}
   m_PrefabInstance: {fileID: 7212954213535381541}
@@ -4919,8 +4963,9 @@ MonoBehaviour:
   stairSpawner: {fileID: 1723934342}
   climbUp: {fileID: 696550501}
   gunAim: {fileID: 1359113570}
-  enemyMovement: {fileID: 7212954213535381546}
+  enemyMovement: {fileID: 0}
   cameraMovement: {fileID: 581165094}
+  firstStairs: {fileID: 1801189418}
 --- !u!222 &8346638414988937218
 CanvasRenderer:
   m_ObjectHideFlags: 0
