@@ -57,7 +57,8 @@ public class ClimbUp : MonoBehaviour
 
     private void OnDisable()
     {
-        blood.transform.position = transform.position;
+        if (blood != null)
+            blood.transform.position = transform.position;
         if (blood.transform.position.x < 0f)
             blood.transform.localScale = -Vector3.one;
         else
