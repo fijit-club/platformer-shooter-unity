@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Shooting : MonoBehaviour
 {
+    public GameObject shield;
+    
     public bool disableShooting;
 
     public int headshotStreak;
 
     public TMP_Text headshotStreakText;
+
+    public int lives = 1;
 
     public bool DisableShooting
     {
@@ -21,21 +25,63 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GunAim gunAim;
     [SerializeField] private StairSpawner stairSpawner;
     [SerializeField] private Animator headshotPopup;
-    [SerializeField] private GameObject ray;
+    [SerializeField] private GameObject[] rays;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletBazooka;
     [SerializeField] private Transform bulletSpawnPoint;
-    
+    [SerializeField] private GunSelection gun;
 
+    private Quaternion _initRot;
+
+    public void ResetLives()
+    {
+        lives = 1;
+    }
+
+    public void EnableRay()
+    {
+        rays[^1].SetActive(true);
+    }
+    
     public void Shoot()
     {
         if (disableShooting) return;
-        Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
-        ray.SetActive(false);
+        
+        if (gun.currentGunIndex == 3)
+            Instantiate(bulletBazooka, bulletSpawnPoint.position, transform.rotation);
+        else
+            Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
+        
+        foreach (var ray in rays)
+        {
+            ray.SetActive(false);
+        }
         gunAim.stopAiming = true;
         disableShooting = true;
-        
+
+        stairSpawner.currentEnemy.Shoot(false);
+        enabled = false;
+    }
+
+    public void CheckLives()
+    {
+        if (gun.currentGunIndex == 4)
+        {
+            if (lives == 1)
+            {
+                lives--;
+                transform.rotation = climbUp.initGunRotation;
+                disableShooting = true;
+                shield.SetActive(true);
+                
+            }
+        }
+    }
+
+    private void PerformEnemyShot(bool miss)
+    {
         var currentEnemy = stairSpawner.currentEnemy;
-        currentEnemy.Shoot();
+        currentEnemy.Shoot(miss);
     }
 
     public void EnemyHit(bool headshot)

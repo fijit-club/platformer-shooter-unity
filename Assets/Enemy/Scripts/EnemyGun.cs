@@ -11,9 +11,15 @@ public class EnemyGun : MonoBehaviour
     
     private bool _aim;
     private Transform _player;
+    private Transform _enemyParent;
+    private Quaternion _initRot;
+    private Vector3 _initScale;
     
     public void Aim(Transform player, int direction, Transform spawnedObjHolder)
     {
+        _initRot = transform.rotation;
+        _initScale = transform.localScale;
+        _enemyParent = transform.parent;
         transform.parent = spawnedObjHolder;
         
         emptyTransform.parent = spawnedObjHolder;
@@ -38,6 +44,12 @@ public class EnemyGun : MonoBehaviour
         Vector3 difference = _player.position - temp.transform.position;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         temp.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+
+        if (_player.GetComponent<ClimbUp>().gun.currentGunIndex != 4) yield return null;
+        transform.parent = _enemyParent;
+        transform.parent.GetComponent<EnemyMovement>().shotBullet = false;
+        transform.rotation = _initRot;
+        transform.localScale = _initScale;
     }
     
     private void Update()

@@ -10,6 +10,7 @@ TagManager:
   - Enemy Location
   - First Enemy
   - Enemy Head
+  - Shield
   layers:
   - Default
   - TransparentFX

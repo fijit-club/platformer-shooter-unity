@@ -7,18 +7,20 @@ public class ClimbUp : MonoBehaviour
     public bool movable;
     public bool headshot;
     public bool died;
+    public GunAim gunAim;
+    public GunSelection gun;
+    public Shooting shooting;
+    public Quaternion initGunRotation;
     
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float rayDistance;
     [SerializeField] private Transform gunTransform;
-    [SerializeField] private GameObject ray;
-    [SerializeField] private Shooting shooting;
+    [SerializeField] private GameObject[] rays;
     [SerializeField] private float rayOffset;
     [SerializeField] private StairSpawner stairSpawner;
     [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private float cameraIncrementY;
-    [SerializeField] private GunAim gunAim;
     [SerializeField] private ScoringSystem scoring;
     [SerializeField] private int increment;
     [SerializeField] private int coinIncrement;
@@ -26,7 +28,7 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private CameraInit cameraInit;
     
     private Rigidbody2D _rb;
-    private int _moveDir = 1;
+    private int _moveDir = -1;
     private Vector3 _startPos;
     private Quaternion _startRot;
     private bool scoreIncreased;
@@ -44,8 +46,9 @@ public class ClimbUp : MonoBehaviour
     {
         transform.position = _startPos;
         transform.rotation = _startRot;
-        _moveDir = 1;
+        _moveDir = -1;
         movable = false;
+        initGunRotation = Quaternion.identity;
         shooting.headshotStreak = 0;
         died = false;
         shooting.headshotStreakText.gameObject.SetActive(false);
@@ -67,6 +70,7 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
+            shooting.lives = 1;
             movable = false;
             _rb.velocity = Vector2.zero;
 
@@ -74,6 +78,7 @@ public class ClimbUp : MonoBehaviour
             rot.y -= 180f;
             rot.z = 0f;
             gunTransform.eulerAngles = rot;
+            initGunRotation = gunTransform.rotation;
 
 
             int stairIndex = StairSpawner.CurrentStairIndex++;
@@ -106,8 +111,11 @@ public class ClimbUp : MonoBehaviour
         gunAim.IncreaseSpeed();
         gunAim.StartAim();
         shooting.disableShooting = false;
-
-        ray.SetActive(true);
+        
+        foreach (var ray in rays)
+        {
+            ray.SetActive(true);
+        }
         _moveDir *= -1;
     }
 

@@ -1,52 +1,22 @@
-using System.Collections;
 using SpaceEscape;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class LaserController : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private bool enemy;
-    [SerializeField] private bool bazooka;
-    
     private Shooting _shooting;
-
+    
+    
     private void Start()
     {
         _shooting = FindObjectOfType<Shooting>();
+        print("another test");
     }
-
-    private void Update()
-    {
-        transform.Translate(transform.InverseTransformDirection(transform.right) * speed * Time.deltaTime);
-    }
-
+    
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.transform.CompareTag("Player") && enemy)
-        {
-            col.transform.gameObject.SetActive(false);
-            Bridge.GetInstance().VibrateBridge(true);
-            GameStateManager.ChangeState(FindObjectOfType<GameOverState>());
-            CameraShake.Shake();
-            Destroy(gameObject);
-        }
-        else if (col.transform.CompareTag("Shield") && enemy)
-        {
-            Destroy(gameObject);
-            col.gameObject.SetActive(false);
-            Bridge.GetInstance().VibrateBridge(true);
-            var gunAim = col.transform.root.GetComponent<GunAim>();
-            var shooting = col.transform.root.GetComponent<Shooting>();
-            shooting.EnableRay();
-            gunAim.enabled = true;
-            gunAim.stopAiming = false;
-            shooting.disableShooting = false;
-            CameraShake.Shake();
-        }
-
-        if (enemy) return;
         if (col.transform.CompareTag("Enemy"))
         {
+            print("test");
             Destroy(col.transform.parent.gameObject);
 
             var enemyMovement = col.transform.parent.GetComponent<EnemyMovement>();
@@ -60,8 +30,6 @@ public class BulletController : MonoBehaviour
             {
                 _shooting.EnemyHit(false);
             }
-            
-            GetComponent<Collider2D>().enabled = false;
         }
         else if (col.transform.CompareTag("First Enemy"))
         {
@@ -79,20 +47,11 @@ public class BulletController : MonoBehaviour
                 _shooting.EnemyHit(false);
             }
         }
-
         if (col.transform.CompareTag("Enemy") || col.transform.CompareTag("First Enemy"))
         {
             col.transform.parent.GetComponent<EnemyMovement>().blood.transform.parent =
                 col.transform.parent.GetComponent<EnemyMovement>().spawnedObjHolder;
             col.transform.parent.GetComponent<EnemyMovement>().blood.SetActive(true);
         }
-        
-        if (!bazooka)
-            Destroy(gameObject);
-    }
-
-    private void CheckForHeadshot()
-    {
-        
     }
 }

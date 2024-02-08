@@ -11,18 +11,18 @@ public class EnemyMovement : MonoBehaviour
     public bool first;
     public Transform enemyLocation;
     public Transform enemyHeadLocation;
-    
+    public bool shotBullet;
+
     [SerializeField] private float movementSpeed;
     [SerializeField] private Collider2D col;
     [SerializeField] private EnemyGun enemyGun;
     [SerializeField] private float shootDelay;
     [SerializeField] private float time;
-    
+
     private Transform _player;
     private Vector3 _initPosition;
     private Vector3 _initGunPosition;
     private Quaternion _initGunRotation;
-    private bool _shotBullet;
     private bool _move;
 
     private void Start()
@@ -44,7 +44,7 @@ public class EnemyMovement : MonoBehaviour
         transform.position = _initPosition;
         enemyGun.transform.position = _initGunPosition;
         enemyGun.transform.rotation = _initGunRotation;
-        _shotBullet = false;
+        shotBullet = false;
         _move = false;
     }
 
@@ -65,29 +65,33 @@ public class EnemyMovement : MonoBehaviour
             var pos = new Vector3(enemyLocation.position.x, transform.position.y, transform.position.z);
             transform.position = Vector3.MoveTowards(transform.position, pos, movementSpeed * Time.deltaTime);
 
-            if (transform.position.x == pos.x && !first)
+            if (transform.position.x == pos.x)
             {
-                print("MOVED");
                 _player.GetComponent<ClimbUp>().ReachedTop();
                 _move = false;
             }
         }
     }
 
-    private IEnumerator DelayedShoot()
+    private IEnumerator DelayedShoot(bool miss)
     {
         yield return new WaitForSeconds(shootDelay);
+        _player.GetComponent<ClimbUp>().shooting.CheckLives();
+        var posTransform = _player;
+        if (miss)
+            posTransform.position += Vector3.up * 2f;
+        
         if (transform.position.x < 0f)
-            enemyGun.Aim(_player, 1, spawnedObjHolder);
+            enemyGun.Aim(posTransform, 1, spawnedObjHolder);
         else
-            enemyGun.Aim(_player, -1, spawnedObjHolder);
+            enemyGun.Aim(posTransform, -1, spawnedObjHolder);
     }
 
-    public void Shoot()
+    public void Shoot(bool miss)
     {
-        if (_shotBullet) return;
-        _shotBullet = true;
-        StartCoroutine(DelayedShoot());
+        if (shotBullet) return;
+        shotBullet = true;
+        StartCoroutine(DelayedShoot(miss));
     }
 
     private void OnDestroy()
