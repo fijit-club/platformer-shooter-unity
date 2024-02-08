@@ -27,6 +27,8 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private ParticleSystem blood;
     [SerializeField] private CameraInit cameraInit;
     [SerializeField] private GameObject shieldSpark;
+    [SerializeField] private AudioSource bloodSound;
+    [SerializeField] private AudioSource reload;
     
     private Rigidbody2D _rb;
     private int _moveDir = -1;
@@ -57,8 +59,10 @@ public class ClimbUp : MonoBehaviour
 
     private void OnDisable()
     {
-        if (blood != null)
-            blood.transform.position = transform.position;
+        if (blood == null) return;
+        blood.transform.position = transform.position;
+        if (bloodSound != null)
+            bloodSound.Play();
         if (blood.transform.position.x < 0f)
             blood.transform.localScale = -Vector3.one;
         else
@@ -72,6 +76,7 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
+            reload.Play();
             shieldSpark.SetActive(false);
             shooting.lives = 1;
             movable = false;
@@ -104,6 +109,7 @@ public class ClimbUp : MonoBehaviour
     }
 
 
+    
     public void UpdateCamera()
     {
         cameraInit.SetCamera(transform.position - (Vector3.up * .3f));

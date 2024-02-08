@@ -8,6 +8,7 @@ public class EnemyGun : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform muzzlePoint;
     [SerializeField] private float shootDelay;
+    [SerializeField] private AudioSource pistol;
     
     private bool _aim;
     private Transform _player;
@@ -44,6 +45,8 @@ public class EnemyGun : MonoBehaviour
         Vector3 difference = _player.position - temp.transform.position;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         temp.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+
+        pistol.Play();
 
         if (_player.GetComponent<ClimbUp>().gun.currentGunIndex == 4)
         {

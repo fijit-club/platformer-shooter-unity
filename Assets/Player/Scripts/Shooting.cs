@@ -21,6 +21,8 @@ public class Shooting : MonoBehaviour
         set => disableShooting = value;
     }
 
+    [SerializeField] private AudioSource[] gunAudios;
+    
     [SerializeField] private ClimbUp climbUp;
     [SerializeField] private GunAim gunAim;
     [SerializeField] private StairSpawner stairSpawner;
@@ -32,6 +34,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GunSelection gun;
     [SerializeField] private Transform firstBlood;
     [SerializeField] private Transform[] shotgunDirs;
+    [SerializeField] private AudioSource bloodSound;
     
     private Quaternion _initRot;
     private Vector3 _initPos;
@@ -55,6 +58,12 @@ public class Shooting : MonoBehaviour
     public void Shoot()
     {
         if (disableShooting) return;
+
+        foreach (var gunAudio in gunAudios)
+        {
+            if (gunAudio.gameObject.activeInHierarchy)
+                gunAudio.Play();
+        }
         
         if (gun.currentGunIndex == 3)
             Instantiate(bulletBazooka, bulletSpawnPoint.position, transform.rotation);
@@ -102,6 +111,8 @@ public class Shooting : MonoBehaviour
 
     public void EnemyHit(bool headshot)
     {
+        bloodSound.Play();
+        
         climbUp.headshot = headshot;
         if (!headshot)
         {
