@@ -1,12 +1,51 @@
+using System;
+using System.Collections.Generic;
+using SpaceEscape;
+using TMPro;
 using UnityEngine;
+
+[Serializable]
+public class Guns
+{
+    public string id;
+    public bool purchased;
+    public int cost;
+}
 
 public class GunSelection : MonoBehaviour
 {
     public int currentGunIndex;
+    public Guns[] availableGuns;
     
     [SerializeField] private GameObject[] guns;
     [SerializeField] private Animator[] gunsUI;
-
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject buyButton;
+    [SerializeField] private TMP_Text gunCost;
+    
+    public void UpdatePurchasedGuns()
+    {
+        var dataAssets = Bridge.GetInstance().thisPlayerInfo.data.assets;
+        
+        for (int i = 0; i < availableGuns.Length; i++)
+        {
+            for (int j = 0; j < dataAssets.Count; j++)
+            {
+                if (availableGuns[i].id == dataAssets[j].id)
+                    availableGuns[i].purchased = true;
+            }
+        }
+        
+        CheckPurchase();
+    }
+    
+    public void PurchaseGun()
+    {
+        Bridge.GetInstance().BuyGun(availableGuns[currentGunIndex].id);
+        availableGuns[currentGunIndex].purchased = true;
+        CheckPurchase();
+    }
+    
     public void Up()
     {
         if (currentGunIndex > 0)
@@ -43,6 +82,21 @@ public class GunSelection : MonoBehaviour
         UpdateGun();
     }
 
+    private void CheckPurchase()
+    {
+        if (availableGuns[currentGunIndex].purchased)
+        {
+            playButton.SetActive(true);
+            buyButton.SetActive(false);
+        }
+        else
+        {
+            playButton.SetActive(false);
+            buyButton.SetActive(true);
+            gunCost.text = availableGuns[currentGunIndex].cost.ToString();
+        }
+    }
+
     private void UpdateGun()
     {
         for (int i = 0; i < guns.Length; i++)
@@ -52,5 +106,7 @@ public class GunSelection : MonoBehaviour
             else
                 guns[i].SetActive(false);
         }
+        
+        CheckPurchase();
     }
 }

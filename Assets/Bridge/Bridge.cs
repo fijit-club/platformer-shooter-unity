@@ -30,9 +30,9 @@ namespace SpaceEscape
         public string id;
         public Attributes[] attributes;
 
-        public Assets(string spaceshipId)
+        public Assets(string gunID)
         {
-            id = spaceshipId;
+            id = gunID;
 
         }
     }
@@ -77,6 +77,7 @@ namespace SpaceEscape
         private static Bridge instance;
         public int coinsCollected = 0;
         [SerializeField] private GameOverSettings gameOverSettings;
+        [SerializeField] private GunSelection gun;
         
 #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
@@ -232,6 +233,8 @@ namespace SpaceEscape
 
             }
             
+            gun.UpdatePurchasedGuns();
+            
             //Replay();
             //Events.CoinsCountChanged.Call();
         }
@@ -279,22 +282,22 @@ namespace SpaceEscape
 // #endif
 //         }
 
-        public void BuySpaceship(string spaceshipID)
+        public void BuyGun(string gunID)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-                    buyAsset(spaceshipID);
+                    buyAsset(gunID);
 #endif
-            AddSpaceship(spaceshipID);
+            AddGun(gunID);
         }
 
-        public void AddSpaceship(string spaceshipID)
+        public void AddGun(string gunID)
         {
-            Assets addedAssets = new Assets(spaceshipID);
-            addedAssets.id = spaceshipID;
+            Assets addedAssets = new Assets(gunID);
+            addedAssets.id = gunID;
         
         
         
-            Debug.Log("added new spaceship " + addedAssets.id);
+            Debug.Log("added new gun " + addedAssets.id);
         
             thisPlayerInfo.data.assets.Add(addedAssets);
         }
@@ -308,7 +311,7 @@ namespace SpaceEscape
             //SendInitialData("{\"coins\": 3000,\"data\": null}");
             //Debug.Log(JsonUtility.ToJson( thisPlayerInfo.data));
             //Debug.Log( thisPlayerInfo.data);
-            SendInitialData("{\"coins\":384696,\"volumeBg\":true,\"volumeSfx\":true,\"highScore\":949,\"data\":{\"assets\":[{\"id\":\"space-escape-slow-time-ship\",\"attributes\":[]},{\"id\":\"space-escape-cancel-explosion-ship\",\"attributes\":[]}], \"saveData\":" +
+            SendInitialData("{\"coins\":384696,\"volumeBg\":true,\"volumeSfx\":true,\"highScore\":949,\"data\":{\"assets\":[{\"id\":\"shotgun\",\"attributes\":[]},{\"id\":\"shield\",\"attributes\":[]}], \"saveData\":" +
                             "\"TEST\"" +
                             "}}");
         }

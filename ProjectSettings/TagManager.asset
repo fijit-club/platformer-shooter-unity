@@ -11,6 +11,7 @@ TagManager:
   - First Enemy
   - Enemy Head
   - Shield
+  - Bullet
   layers:
   - Default
   - TransparentFX

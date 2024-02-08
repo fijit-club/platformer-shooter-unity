@@ -45,11 +45,13 @@ public class EnemyGun : MonoBehaviour
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         temp.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
 
-        if (_player.GetComponent<ClimbUp>().gun.currentGunIndex != 4) yield return null;
-        transform.parent = _enemyParent;
-        transform.parent.GetComponent<EnemyMovement>().shotBullet = false;
-        transform.rotation = _initRot;
-        transform.localScale = _initScale;
+        if (_player.GetComponent<ClimbUp>().gun.currentGunIndex == 4)
+        {
+            transform.parent = _enemyParent;
+            transform.parent.GetComponent<EnemyMovement>().shotBullet = false;
+            transform.rotation = _initRot;
+            transform.localScale = _initScale;
+        }
     }
     
     private void Update()
