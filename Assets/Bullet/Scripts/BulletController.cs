@@ -35,14 +35,11 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
             col.gameObject.SetActive(false);
             Bridge.GetInstance().VibrateBridge(true);
-            var gunAim = col.transform.root.GetComponent<GunAim>();
-            var shooting = col.transform.root.GetComponent<Shooting>();
-            col.transform.parent.GetChild(0).gameObject.SetActive(true);
-            shooting.EnableRay();
-            gunAim.enabled = true;
-            gunAim.stopAiming = false;
-            shooting.disableShooting = false;
             CameraShake.Shake();
+            col.transform.parent.GetChild(0).gameObject.SetActive(true);
+            
+            var gunAim = col.transform.root.GetComponent<GunAim>();
+            gunAim.RestartShootingAfterShield();
         }
 
         if (enemy) return;
@@ -61,13 +58,13 @@ public class BulletController : MonoBehaviour
             {
                 _shooting.EnemyHit(false);
             }
-            
+
             GetComponent<Collider2D>().enabled = false;
         }
         else if (col.transform.CompareTag("First Enemy"))
         {
             col.transform.parent.gameObject.SetActive(false);
-            
+
             var enemyMovement = col.transform.parent.GetComponent<EnemyMovement>();
 
             if (enemyMovement.enemyHeadLocation.position.y < col.GetContact(0).point.y)
@@ -87,8 +84,8 @@ public class BulletController : MonoBehaviour
                 col.transform.parent.GetComponent<EnemyMovement>().spawnedObjHolder;
             col.transform.parent.GetComponent<EnemyMovement>().blood.SetActive(true);
         }
-        
-        if (!bazooka)
+
+        if (!bazooka && !col.transform.CompareTag("Bullet"))
             Destroy(gameObject);
     }
 

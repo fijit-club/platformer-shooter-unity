@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GunAim : MonoBehaviour
@@ -18,6 +19,21 @@ public class GunAim : MonoBehaviour
     private Quaternion _startRot;
     private float _initSpeed;
     private Quaternion _initRot;
+
+    public void RestartShootingAfterShield()
+    {
+        StartCoroutine(DelayedRestart());
+    }
+
+    private IEnumerator DelayedRestart()
+    {
+        yield return new WaitForSeconds(.3f);
+        var shooting = transform.root.GetComponent<Shooting>();
+        shooting.EnableRay();
+        enabled = true;
+        stopAiming = false;
+        shooting.disableShooting = false;
+    }
 
     public void ResetGun()
     {

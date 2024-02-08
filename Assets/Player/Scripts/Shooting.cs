@@ -30,12 +30,21 @@ public class Shooting : MonoBehaviour
     [SerializeField] private GameObject bulletBazooka;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GunSelection gun;
-
+    [SerializeField] private Transform firstBlood;
+    [SerializeField] private Transform[] shotgunDirs;
+    
     private Quaternion _initRot;
+    private Vector3 _initPos;
+
+    private void Start()
+    {
+        _initPos = firstBlood.position;
+    }
 
     public void ResetLives()
     {
         lives = 1;
+        firstBlood.position = _initPos;
     }
 
     public void EnableRay()
@@ -49,6 +58,13 @@ public class Shooting : MonoBehaviour
         
         if (gun.currentGunIndex == 3)
             Instantiate(bulletBazooka, bulletSpawnPoint.position, transform.rotation);
+        else if (gun.currentGunIndex == 2)
+        {
+            foreach (var shotgunDir in shotgunDirs)
+            {
+                Instantiate(bullet, shotgunDir.position, shotgunDir.rotation);
+            }
+        }
         else
             Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
         
