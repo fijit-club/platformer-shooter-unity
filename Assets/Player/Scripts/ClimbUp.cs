@@ -26,6 +26,7 @@ public class ClimbUp : MonoBehaviour
     [SerializeField] private int coinIncrement;
     [SerializeField] private ParticleSystem blood;
     [SerializeField] private CameraInit cameraInit;
+    [SerializeField] private GameObject shieldSpark;
     
     private Rigidbody2D _rb;
     private int _moveDir = -1;
@@ -70,6 +71,7 @@ public class ClimbUp : MonoBehaviour
     {
         if (other.CompareTag("StairsTop"))
         {
+            shieldSpark.SetActive(false);
             shooting.lives = 1;
             movable = false;
             _rb.velocity = Vector2.zero;

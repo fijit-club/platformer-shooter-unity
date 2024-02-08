@@ -37,6 +37,7 @@ public class BulletController : MonoBehaviour
             Bridge.GetInstance().VibrateBridge(true);
             var gunAim = col.transform.root.GetComponent<GunAim>();
             var shooting = col.transform.root.GetComponent<Shooting>();
+            col.transform.parent.GetChild(0).gameObject.SetActive(true);
             shooting.EnableRay();
             gunAim.enabled = true;
             gunAim.stopAiming = false;
