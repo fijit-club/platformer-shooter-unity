@@ -7,7 +7,7 @@ public class ScoringSystem : MonoBehaviour
     public static int Score { get; private set; }
     public static int Coins { get; private set; }
 
-    [SerializeField] private TMP_Text mainMenuCoins;
+    [SerializeField] private TMP_Text[] totalCoins;
     [SerializeField] private TMP_Text[] scoreTexts;
     [SerializeField] private TMP_Text[] coinsTexts;
     [SerializeField] private TMP_Text[] highScoreTexts;
@@ -30,7 +30,11 @@ public class ScoringSystem : MonoBehaviour
 
     public void UpdateCoins()
     {
-        mainMenuCoins.text = Bridge.GetInstance().thisPlayerInfo.coins.ToString();
+        foreach (var totalCoin in totalCoins)
+        {
+            totalCoin.text = Bridge.GetInstance().thisPlayerInfo.coins.ToString();
+            
+        }
         
     }
 

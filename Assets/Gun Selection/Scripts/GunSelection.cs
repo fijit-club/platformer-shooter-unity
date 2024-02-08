@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SpaceEscape;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class Guns
@@ -22,6 +23,7 @@ public class GunSelection : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject buyButton;
     [SerializeField] private TMP_Text gunCost;
+    [SerializeField] private TMP_Text[] coins;
     
     public void UpdatePurchasedGuns()
     {
@@ -44,6 +46,11 @@ public class GunSelection : MonoBehaviour
         Bridge.GetInstance().BuyGun(availableGuns[currentGunIndex].id);
         availableGuns[currentGunIndex].purchased = true;
         CheckPurchase();
+        Bridge.GetInstance().thisPlayerInfo.coins -= availableGuns[currentGunIndex].cost;
+        foreach (var coin in coins)
+        {
+            coin.text = Bridge.GetInstance().thisPlayerInfo.coins.ToString();
+        }
     }
     
     public void Up()
@@ -92,6 +99,11 @@ public class GunSelection : MonoBehaviour
         else
         {
             playButton.SetActive(false);
+            if (Bridge.GetInstance().thisPlayerInfo.coins >= availableGuns[currentGunIndex].cost)
+                buyButton.GetComponent<Button>().interactable = true;
+            else
+                buyButton.GetComponent<Button>().interactable = false;
+                
             buyButton.SetActive(true);
             gunCost.text = availableGuns[currentGunIndex].cost.ToString();
         }

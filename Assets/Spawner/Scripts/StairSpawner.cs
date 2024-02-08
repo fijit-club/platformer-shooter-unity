@@ -38,6 +38,7 @@ public class StairSpawner : MonoBehaviour
         _direction = 1;
         _currentOrderIndex = -1;
         CurrentStairIndex = 0;
+        _index = 1;
         StairCases.Clear();
     }
 
