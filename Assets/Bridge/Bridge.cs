@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 using System;
-using System.Runtime.InteropServices;
-using TMPro;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using UnityEngine;
 
 namespace SpaceEscape
 {
@@ -37,14 +34,20 @@ namespace SpaceEscape
         }
     }
     
-    [System.Serializable]
+    [Serializable]
+    public class SaveData
+    {
+        public int currentGun;
+    }
+    
+    [Serializable]
     public class Data
     {
         public List<Assets> assets;
-        public string saveData;
+        public SaveData saveData;
     }
 
-    [System.Serializable]
+    [Serializable]
     public class PlayerInfo
     {
         public int coins;
@@ -112,6 +115,17 @@ namespace SpaceEscape
         public static Bridge GetInstance()
         {
             return instance;
+        }
+        
+        public void SaveData()
+        {
+            var localSaveData = thisPlayerInfo.data.saveData;
+
+            string jsonData = JsonConvert.SerializeObject(localSaveData);
+            
+#if UNITY_WEBGL && !UNITY_EDITOR
+                    setSavedata(jsonData);
+#endif
         }
 
         private void Start()

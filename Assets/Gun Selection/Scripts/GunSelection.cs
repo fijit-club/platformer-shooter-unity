@@ -24,6 +24,31 @@ public class GunSelection : MonoBehaviour
     [SerializeField] private GameObject buyButton;
     [SerializeField] private TMP_Text gunCost;
     [SerializeField] private TMP_Text[] coins;
+
+    private void Start()
+    {
+        currentGunIndex = Bridge.GetInstance().thisPlayerInfo.data.saveData.currentGun;
+        
+        UpdateGun();
+        SetInitialShip();
+    }
+
+    public void SaveWeaponData()
+    {
+        Bridge.GetInstance().thisPlayerInfo.data.saveData.currentGun = currentGunIndex;
+        Bridge.GetInstance().SaveData();
+    }
+
+    private void SetInitialShip()
+    {
+        for (int i = 0; i < gunsUI.Length; i++)
+        {
+            if (i != currentGunIndex)
+                gunsUI[i].Play("Hide");
+            else
+                gunsUI[i].Play("Show");
+        }
+    }
     
     public void UpdatePurchasedGuns()
     {
