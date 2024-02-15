@@ -54,6 +54,17 @@ const plugin = {
       console.warn('Failed to post message ',e);
     }
   },
+  setSavedata: function (savedata) {
+    try {
+      savedata = UTF8ToString(savedata);
+      const data = { event: 'SET_SAVEDATA', payload: { savedata } };
+      if(window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(data));
+	  if(window.dispatchReactUnityEvent) window.dispatchReactUnityEvent('gameEvent', JSON.stringify(data));
+	 
+    } catch (e) {
+      console.warn('Failed to post message');
+    }
+	},
   load: function () {
     try {
       const data = { event: 'LOAD' };

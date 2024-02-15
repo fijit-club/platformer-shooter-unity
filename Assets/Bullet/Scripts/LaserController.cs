@@ -1,4 +1,4 @@
-using SpaceEscape;
+using ShooterGame;
 using UnityEngine;
 
 public class LaserController : MonoBehaviour

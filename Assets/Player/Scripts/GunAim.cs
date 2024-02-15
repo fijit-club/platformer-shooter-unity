@@ -1,5 +1,5 @@
 using System.Collections;
-using SpaceEscape;
+using ShooterGame;
 using UnityEngine;
 
 public class GunAim : MonoBehaviour

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SpaceEscape;
+using ShooterGame;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

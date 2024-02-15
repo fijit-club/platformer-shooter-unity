@@ -1,4 +1,4 @@
-using SpaceEscape;
+using ShooterGame;
 using TMPro;
 using UnityEngine;
 

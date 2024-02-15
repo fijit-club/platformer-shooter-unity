@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Collections;
+using System.Runtime.InteropServices;
 
-namespace SpaceEscape
+namespace ShooterGame
 {
     public class NativeAPI
     {
