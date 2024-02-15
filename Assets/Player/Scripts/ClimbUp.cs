@@ -118,8 +118,8 @@ public class ClimbUp : MonoBehaviour
     public void ReachedTop()
     {
         gunAim.IncreaseSpeed();
-        gunAim.StartAim();
         shooting.disableShooting = false;
+        gunAim.StartAim();
         
         foreach (var ray in rays)
         {

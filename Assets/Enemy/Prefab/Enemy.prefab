@@ -530,6 +530,7 @@ MonoBehaviour:
   enemyLocation: {fileID: 5199475653613552792}
   enemyHeadLocation: {fileID: 2707670745896215112}
   shotBullet: 0
+  head: {fileID: 4683289187115303818}
   movementSpeed: 1.6
   col: {fileID: 5987066884167620771}
   enemyGun: {fileID: 3999368649734756688}

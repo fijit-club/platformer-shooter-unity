@@ -12,7 +12,8 @@ public class EnemyMovement : MonoBehaviour
     public Transform enemyLocation;
     public Transform enemyHeadLocation;
     public bool shotBullet;
-
+    public Transform head;
+    
     [SerializeField] private float movementSpeed;
     [SerializeField] private Collider2D col;
     [SerializeField] private EnemyGun enemyGun;

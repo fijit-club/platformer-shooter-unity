@@ -35,10 +35,14 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Transform firstBlood;
     [SerializeField] private Transform[] shotgunDirs;
     [SerializeField] private AudioSource bloodSound;
+    [SerializeField] private Animator tutorialText1;
+    [SerializeField] private Animator tutorialText2;
+    [SerializeField] private GameObject headHighlight;
     
     private Quaternion _initRot;
     private Vector3 _initPos;
-
+    private int _index;
+    
     private void Start()
     {
         _initPos = firstBlood.position;
@@ -58,6 +62,14 @@ public class Shooting : MonoBehaviour
     public void Shoot()
     {
         if (disableShooting) return;
+        
+        if (_index < 2)
+        {
+            _index++;
+            tutorialText1.Play("HideTutorial", -1, 0f);
+            tutorialText2.Play("Hide2", -1, 0f);
+            headHighlight.SetActive(false);
+        }
 
         foreach (var gunAudio in gunAudios)
         {

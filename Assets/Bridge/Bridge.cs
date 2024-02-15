@@ -81,6 +81,7 @@ namespace SpaceEscape
         public int coinsCollected = 0;
         [SerializeField] private GameOverSettings gameOverSettings;
         [SerializeField] private GunSelection gun;
+        [SerializeField] private GunAim gunAim;
         
 #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
@@ -246,6 +247,8 @@ namespace SpaceEscape
                 Silence("true");
 
             }
+            
+            gunAim.CheckTutorial();
             
             gun.UpdatePurchasedGuns();
             
