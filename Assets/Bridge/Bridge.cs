@@ -113,6 +113,9 @@ namespace ShooterGame
 
         [DllImport("__Internal")]
         private static extern void vibrate(bool isLong);
+
+        [DllImport("__Internal")]
+        private static extern void setSavedata(string savedata);
 #endif
 
         public static Bridge GetInstance()
