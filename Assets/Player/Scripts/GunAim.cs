@@ -46,7 +46,7 @@ public class GunAim : MonoBehaviour
     public void ResetGun()
     {
         shooting.freeShot = false;
-        shooting.headshotCount = 0;
+        shooting.headshotCount = 1;
         _localRotationSpeed = rotationSpeed;
         stopAiming = true;
         transform.position = _startPos;
