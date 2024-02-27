@@ -189,6 +189,6 @@ public class GunAim : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         shooting.disableShooting = false;
         shooting.Shoot();
-        shooting.crosshairAnimation.Play("Idle", -1, 0f);
+        shooting.crosshairAnimation.Play("Shoot", -1, 0f);
     }
 }
