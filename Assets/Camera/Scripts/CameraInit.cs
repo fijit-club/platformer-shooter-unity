@@ -4,6 +4,7 @@ public class CameraInit : MonoBehaviour
 {
     [SerializeField] private Vector3 initPos;
     [SerializeField] private float orthographicSize;
+    [SerializeField] private float orthographicSizeInGame = 5f;
     [SerializeField] private Camera mainCam;
     
     private Vector3 _camPos;
@@ -24,7 +25,7 @@ public class CameraInit : MonoBehaviour
     public void SetCamera()
     {
         _camPos = Vector3.zero;
-        _size = 5;
+        _size = orthographicSizeInGame;
     }
 
     private void Update()

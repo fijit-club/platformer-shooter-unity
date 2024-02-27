@@ -15,7 +15,9 @@ public class Shooting : MonoBehaviour
     public TMP_Text headshotStreakText;
 
     public int lives = 1;
-
+    public bool freeShot;
+    public bool freeShotOnGoing;
+    
     public bool DisableShooting
     {
         set => disableShooting = value;
@@ -38,10 +40,12 @@ public class Shooting : MonoBehaviour
     [SerializeField] private Animator tutorialText1;
     [SerializeField] private Animator tutorialText2;
     [SerializeField] private GameObject headHighlight;
+    public Animator crosshairAnimation;
     
     private Quaternion _initRot;
     private Vector3 _initPos;
     private int _index;
+    public int headshotCount = 1;
     
     private void Start()
     {
@@ -79,13 +83,6 @@ public class Shooting : MonoBehaviour
         
         if (gun.currentGunIndex == 3)
             Instantiate(bulletBazooka, bulletSpawnPoint.position, transform.rotation);
-        else if (gun.currentGunIndex == 2)
-        {
-            foreach (var shotgunDir in shotgunDirs)
-            {
-                Instantiate(bullet, shotgunDir.position, shotgunDir.rotation);
-            }
-        }
         else
             Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
         
@@ -133,6 +130,21 @@ public class Shooting : MonoBehaviour
         }
         else
         {
+            headshotCount++;
+
+            if (headshotCount == 2)
+            {
+                crosshairAnimation.Play("Crosshair Show", -1, 0f);
+            }
+            
+            if (headshotCount == 3)
+            {
+                crosshairAnimation.Play("Crosshair Show Full", -1, 0f);
+                headshotCount = 0;
+                freeShot = true;
+                freeShotOnGoing = true;
+            }
+
             CameraShake.Shake();
             if (headshotStreak < 4)
                 headshotStreak++;

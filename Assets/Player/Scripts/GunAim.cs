@@ -121,6 +121,17 @@ public class GunAim : MonoBehaviour
         if (stopAiming) return;
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
 
+        if (shooting.freeShot)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(muzzle.position, muzzle.right, Mathf.Infinity);
+            if (hit)
+            {
+                shooting.disableShooting = true;
+                rotationSpeed = 120f;
+                CheckHead(hit);
+            }
+        }
+
         if (_tutHeadshotRay)
         {
             RaycastHit2D hit = Physics2D.Raycast(muzzle.position, muzzle.right, Mathf.Infinity);
@@ -158,5 +169,26 @@ public class GunAim : MonoBehaviour
             stairSpawner.currentEnemy.Shoot(false);
             enabled = false;
         }
+    }
+
+    private void CheckHead(RaycastHit2D hit)
+    {
+        if (hit.transform.CompareTag("Enemy"))
+        {
+            if (hit.point.y > hit.transform.parent.GetComponent<EnemyMovement>().enemyHeadLocation.position.y)
+            {
+                stopAiming = true;
+                shooting.freeShot = false;
+                StartCoroutine(DelayedShoot());
+            }
+        }
+    }
+
+    private IEnumerator DelayedShoot()
+    {
+        yield return new WaitForSeconds(.3f);
+        shooting.disableShooting = false;
+        shooting.Shoot();
+        shooting.crosshairAnimation.Play("Idle", -1, 0f);
     }
 }
