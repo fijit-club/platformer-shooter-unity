@@ -126,6 +126,9 @@ public class Shooting : MonoBehaviour
         if (!headshot)
         {
             headshotStreak = 0;
+            headshotCount = 0;
+            crosshairAnimation.Play("Idle", -1, 0f);
+            
             headshotPopup.transform.GetChild(0).gameObject.SetActive(false);
         }
         else
