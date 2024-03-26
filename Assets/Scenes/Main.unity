@@ -875,9 +875,6 @@ MonoBehaviour:
   - id: shotgun
     purchased: 0
     cost: 1000
-  - id: bazooka
-    purchased: 0
-    cost: 3000
   - id: shield
     purchased: 0
     cost: 7000
@@ -885,13 +882,11 @@ MonoBehaviour:
   - {fileID: 1232734893}
   - {fileID: 503125799}
   - {fileID: 1715597875}
-  - {fileID: 1270232083}
   - {fileID: 1183566749}
   gunsUI:
   - {fileID: 4975059}
   - {fileID: 346017851}
   - {fileID: 2036975318}
-  - {fileID: 1908103546}
   - {fileID: 553538158}
   playButton: {fileID: 81093670}
   buyButton: {fileID: 612926401}
@@ -3386,7 +3381,7 @@ Transform:
   m_Children:
   - {fileID: 1832461416}
   m_Father: {fileID: 1823462472}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &553538158
 Animator:
@@ -5977,7 +5972,7 @@ Transform:
   - {fileID: 75325118}
   - {fileID: 1121292758}
   m_Father: {fileID: 1934786371}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1183566751
 SpriteRenderer:
@@ -6486,7 +6481,7 @@ Transform:
   m_Children:
   - {fileID: 1578547887}
   m_Father: {fileID: 1934786371}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1270232085
 SpriteRenderer:
@@ -9198,8 +9193,8 @@ Transform:
   - {fileID: 4975058}
   - {fileID: 346017850}
   - {fileID: 2036975317}
-  - {fileID: 1908103545}
   - {fileID: 553538157}
+  - {fileID: 1908103545}
   m_Father: {fileID: 1359113569}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9527,7 +9522,7 @@ Transform:
   m_Children:
   - {fileID: 857496524}
   m_Father: {fileID: 1823462472}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1908103546
 Animator:
@@ -9581,8 +9576,8 @@ Transform:
   - {fileID: 1232734894}
   - {fileID: 503125800}
   - {fileID: 1715597876}
-  - {fileID: 1270232084}
   - {fileID: 1183566750}
+  - {fileID: 1270232084}
   m_Father: {fileID: 1359113569}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

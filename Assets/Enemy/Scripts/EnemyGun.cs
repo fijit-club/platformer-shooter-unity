@@ -48,7 +48,7 @@ public class EnemyGun : MonoBehaviour
 
         pistol.Play();
 
-        if (_player.GetComponent<ClimbUp>().gun.currentGunIndex == 4)
+        if (_player.GetComponent<ClimbUp>().gun.currentGunIndex == 3)
         {
             transform.parent = _enemyParent;
             transform.parent.GetComponent<EnemyMovement>().shotBullet = false;

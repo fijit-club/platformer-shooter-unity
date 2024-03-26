@@ -69,10 +69,11 @@ public class Shooting : MonoBehaviour
         
         if (_index < 2)
         {
-            _index++;
             tutorialText1.Play("HideTutorial", -1, 0f);
-            tutorialText2.Play("Hide2", -1, 0f);
+            if (_index == 1)
+                tutorialText2.Play("Hide2", -1, 0f);
             headHighlight.SetActive(false);
+            _index++;
         }
 
         foreach (var gunAudio in gunAudios)
@@ -80,11 +81,8 @@ public class Shooting : MonoBehaviour
             if (gunAudio.gameObject.activeInHierarchy)
                 gunAudio.Play();
         }
-        
-        if (gun.currentGunIndex == 3)
-            Instantiate(bulletBazooka, bulletSpawnPoint.position, transform.rotation);
-        else
-            Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
+
+        Instantiate(bullet, bulletSpawnPoint.position, transform.rotation);
         
         foreach (var ray in rays)
         {
@@ -99,7 +97,7 @@ public class Shooting : MonoBehaviour
 
     public void CheckLives()
     {
-        if (gun.currentGunIndex == 4)
+        if (gun.currentGunIndex == 3)
         {
             if (lives == 1)
             {
@@ -127,7 +125,8 @@ public class Shooting : MonoBehaviour
         {
             headshotStreak = 0;
             headshotCount = 0;
-            crosshairAnimation.Play("Idle", -1, 0f);
+            if (gun.currentGunIndex == 2)
+                crosshairAnimation.Play("Idle", -1, 0f);
             
             headshotPopup.transform.GetChild(0).gameObject.SetActive(false);
         }
@@ -135,17 +134,20 @@ public class Shooting : MonoBehaviour
         {
             headshotCount++;
 
-            if (headshotCount == 2)
+            if (gun.currentGunIndex == 2)
             {
-                crosshairAnimation.Play("Crosshair Show", -1, 0f);
-            }
-            
-            if (headshotCount == 3)
-            {
-                crosshairAnimation.Play("Crosshair Show Full", -1, 0f);
-                headshotCount = 0;
-                freeShot = true;
-                freeShotOnGoing = true;
+                if (headshotCount == 2)
+                {
+                    crosshairAnimation.Play("Crosshair Show", -1, 0f);
+                }
+
+                if (headshotCount == 3)
+                {
+                    crosshairAnimation.Play("Crosshair Show Full", -1, 0f);
+                    headshotCount = 0;
+                    freeShot = true;
+                    freeShotOnGoing = true;
+                }
             }
 
             CameraShake.Shake();

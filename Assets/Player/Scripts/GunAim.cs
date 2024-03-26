@@ -158,7 +158,7 @@ public class GunAim : MonoBehaviour
         var z = transform.eulerAngles.z;
         if (z > maxRot)
         {
-            if (gun.currentGunIndex == 4)
+            if (gun.currentGunIndex == 3)
             {
                 if (shooting.lives == 1)
                 {
